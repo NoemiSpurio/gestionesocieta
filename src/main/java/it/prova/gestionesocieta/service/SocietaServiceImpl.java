@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,10 +46,13 @@ public class SocietaServiceImpl implements SocietaService {
 
 	@Transactional
 	public void rimuovi(Societa societaInstance) {
-		if (societaInstance.getDipendenti().size() != 0) {
+		TypedQuery<Societa> query = entityManager
+				.createQuery("select s from Societa s join fetch s.dipendenti d where s.id = ?1", Societa.class);
+		query.setParameter(1, societaInstance.getId());
+		if (query.getResultList().size() != 0) {
 			throw new SocietaConDipendentiException("Impossibile eliminare una societa' con dei dipendenti!!!");
 		}
-		
+
 		societaRepository.delete(societaInstance);
 	}
 
@@ -60,7 +64,7 @@ public class SocietaServiceImpl implements SocietaService {
 			query += " and s.ragioneSociale like '%" + example.getRagioneSociale() + "%'";
 		if (StringUtils.isNotBlank(example.getIndirizzo()))
 			query += " and s.indirizzo like '%" + example.getIndirizzo() + "%'";
-		if (example.getDataFondazione() != null) 
+		if (example.getDataFondazione() != null)
 			query += " and s.dataFondazione > '" + example.getDataFondazione().toInstant() + "'";
 
 		return entityManager.createQuery(query, Societa.class).getResultList();
