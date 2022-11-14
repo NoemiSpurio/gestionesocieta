@@ -142,11 +142,36 @@ public class BatteriaDiTestService {
 			throw new RuntimeException(
 					"testFindAllDistinctByDipendenti_RedditoAnnuoLordoGreaterThan failed! Numero record inatteso.");
 		}
-		
+
 		dipendenteService.rimuovi(dipendente1);
 		dipendenteService.rimuovi(dipendente2);
 		societaService.rimuovi(nuovaSocieta1);
 		societaService.rimuovi(nuovaSocieta2);
 		System.out.println("testFindAllDistinctByDipendenti_RedditoAnnuoLordoGreaterThan PASSED!");
+	}
+
+	public void testDipendentePiuAnzianoDiSocietaFondatePrimaDi() throws ParseException {
+
+		Date dataFondazione = new SimpleDateFormat("dd-MM-yyyy").parse("01-01-1850");
+		Date dataInput = new SimpleDateFormat("dd-MM-yyyy").parse("01-01-1900");
+
+		Societa nuovaSocieta1 = new Societa("Ragione sociale 1", "via Colombo 33", dataFondazione);
+		societaService.inserisciNuovo(nuovaSocieta1);
+		Dipendente dipendente1 = new Dipendente("nome1", "cognome1", new Date(), 1000, nuovaSocieta1);
+		dipendenteService.inserisciNuovo(dipendente1);
+		Dipendente dipendente2 = new Dipendente("nome1", "cognome1",
+				new SimpleDateFormat("dd-MM-yyyy").parse("01-01-1950"), 1000, nuovaSocieta1);
+		dipendenteService.inserisciNuovo(dipendente2);
+		
+		Dipendente result = dipendenteService.dipendentePiuAnzianoDiSocietaFondatePrimaDi(dataInput);
+		
+		if (result.getId() != dipendente2.getId()) {
+			throw new RuntimeException("testDipendentePiuAnzianoDiSocietaFondatePrimaDi failed!");
+		}
+		
+		dipendenteService.rimuovi(dipendente1);
+		dipendenteService.rimuovi(dipendente2);
+		societaService.rimuovi(nuovaSocieta1);
+		System.out.println("testDipendentePiuAnzianoDiSocietaFondatePrimaDi PASSED!");
 	}
 }

@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "societa")
@@ -25,6 +27,7 @@ public class Societa {
 	private String ragioneSociale;
 	@Column(name = "indirizzo")
 	private String indirizzo;
+	@Temporal(TemporalType.DATE)
 	@Column(name = "datafondazione")
 	private Date dataFondazione;
 

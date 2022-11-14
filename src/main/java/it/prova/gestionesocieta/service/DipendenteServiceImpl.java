@@ -1,5 +1,6 @@
 package it.prova.gestionesocieta.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,11 @@ public class DipendenteServiceImpl implements DipendenteService {
 	@Transactional
 	public void rimuovi(Dipendente dipendenteInstance) {
 		dipendenteRepository.delete(dipendenteInstance);
+	}
+
+	@Override
+	public Dipendente dipendentePiuAnzianoDiSocietaFondatePrimaDi(Date dataFondazioneInput) {
+		return dipendenteRepository.findTopBySocieta_DataFondazioneBeforeOrderByDataAssunzioneAsc(dataFondazioneInput);
 	}
 
 }
