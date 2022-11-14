@@ -88,4 +88,20 @@ public class BatteriaDiTestService {
 		societaService.rimuovi(nuovaSocieta2);
 		System.out.println("testRimuoviSocieta PASSED!");
 	}
+	
+	public void testInserisciDipendente() {
+		
+		Societa nuovaSocieta1 = new Societa("Ragione sociale 1","via Colombo 33", new Date());
+		societaService.inserisciNuovo(nuovaSocieta1);
+		Dipendente dipendente1 = new Dipendente("nome1","cognome1", new Date(), 1000, nuovaSocieta1);
+		dipendenteService.inserisciNuovo(dipendente1);
+		
+		if (dipendenteService.listAllDipendenti().size() != 1) {
+			throw new RuntimeException("testInserisciDipendente failed! Numero record inatteso.");
+		}
+		
+		dipendenteService.rimuovi(dipendente1);
+		societaService.rimuovi(nuovaSocieta1);
+		System.out.println("testInserisciDipendente PASSED!");
+	}
 }
