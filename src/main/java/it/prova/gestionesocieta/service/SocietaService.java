@@ -15,4 +15,6 @@ public interface SocietaService {
 	public void inserisciNuovo(Societa societaInstance);
 
 	public void rimuovi(Societa societaInstance);
+	
+	public List<Societa> findByExample(Societa example);
 }
