@@ -26,8 +26,8 @@ public class Dipendente {
 	private String cognome;
 	@Column(name = "dataassunzione")
 	private Date dataAssunzione;
-	@Column(name = "reditoannuolordo")
-	private int reditoAnnuoLordo;
+	@Column(name = "redditoannuolordo")
+	private int redditoAnnuoLordo;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "societa_id", nullable = false)
@@ -42,15 +42,15 @@ public class Dipendente {
 		this.nome = nome;
 		this.cognome = cognome;
 		this.dataAssunzione = dataAssunzione;
-		this.reditoAnnuoLordo = reditoAnnuoLordo;
+		this.redditoAnnuoLordo = reditoAnnuoLordo;
 	}
 
-	public Dipendente(String nome, String cognome, Date dataAssunzione, int reditoAnnuoLordo, Societa societa) {
+	public Dipendente(String nome, String cognome, Date dataAssunzione, int redditoAnnuoLordo, Societa societa) {
 		super();
 		this.nome = nome;
 		this.cognome = cognome;
 		this.dataAssunzione = dataAssunzione;
-		this.reditoAnnuoLordo = reditoAnnuoLordo;
+		this.redditoAnnuoLordo = redditoAnnuoLordo;
 		this.societa = societa;
 	}
 
@@ -86,12 +86,12 @@ public class Dipendente {
 		this.dataAssunzione = dataAssunzione;
 	}
 
-	public int getReditoAnnuoLordo() {
-		return reditoAnnuoLordo;
+	public int getRedditoAnnuoLordo() {
+		return redditoAnnuoLordo;
 	}
 
-	public void setReditoAnnuoLordo(int reditoAnnuoLordo) {
-		this.reditoAnnuoLordo = reditoAnnuoLordo;
+	public void setRedditoAnnuoLordo(int redditoAnnuoLordo) {
+		this.redditoAnnuoLordo = redditoAnnuoLordo;
 	}
 
 	public Societa getSocieta() {
@@ -105,7 +105,7 @@ public class Dipendente {
 	@Override
 	public String toString() {
 		return "Dipendente [id=" + id + ", nome=" + nome + ", cognome=" + cognome + ", dataAssunzione=" + dataAssunzione
-				+ ", reditoAnnuoLordo=" + reditoAnnuoLordo + ", societa=" + societa + "]";
+				+ ", redditoAnnuoLordo=" + redditoAnnuoLordo + ", societa=" + societa + "]";
 	}
 
 }

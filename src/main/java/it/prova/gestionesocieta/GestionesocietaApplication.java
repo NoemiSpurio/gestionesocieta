@@ -26,6 +26,7 @@ public class GestionesocietaApplication implements CommandLineRunner {
 		batteriaDiTestService.testRimuoviSocieta();
 		batteriaDiTestService.testInserisciDipendente();
 		batteriaDiTestService.testModificaDipendente();
+		batteriaDiTestService.testFindAllDistinctByDipendenti_RedditoAnnuoLordoGreaterThan();
 		
 		System.out.println("=== FINE BATTERIA DI TEST ===");
 	}
