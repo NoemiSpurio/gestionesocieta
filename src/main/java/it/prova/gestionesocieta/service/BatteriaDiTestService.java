@@ -104,4 +104,25 @@ public class BatteriaDiTestService {
 		societaService.rimuovi(nuovaSocieta1);
 		System.out.println("testInserisciDipendente PASSED!");
 	}
+	
+	public void testModificaDipendente() {
+		
+		Societa nuovaSocieta1 = new Societa("Ragione sociale 1","via Colombo 33", new Date());
+		societaService.inserisciNuovo(nuovaSocieta1);
+		Dipendente dipendente1 = new Dipendente("nome1","cognome1", new Date(), 1000, nuovaSocieta1);
+		dipendenteService.inserisciNuovo(dipendente1);
+		
+		Dipendente dipendente1Mod = new Dipendente("nome2","cognome2", new Date(), 2000, nuovaSocieta1);
+		dipendente1Mod.setId(dipendente1.getId());
+		
+		dipendenteService.aggiorna(dipendente1Mod);
+		
+		if (dipendenteService.caricaSingoloDipendente(dipendente1.getId()).getReditoAnnuoLordo() != 2000) {
+			throw new RuntimeException("testModificaDipendente failed! Modifica non avvenuta.");
+		}
+		
+		dipendenteService.rimuovi(dipendente1);
+		societaService.rimuovi(nuovaSocieta1);
+		System.out.println("testModificaDipendente PASSED!");
+	}
 }
