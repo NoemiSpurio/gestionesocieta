@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import it.prova.gestionesocieta.exception.SocietaConDipendentiException;
 import it.prova.gestionesocieta.model.Societa;
 import it.prova.gestionesocieta.repository.SocietaRepository;
 
@@ -44,6 +45,10 @@ public class SocietaServiceImpl implements SocietaService {
 
 	@Transactional
 	public void rimuovi(Societa societaInstance) {
+		if (societaInstance.getDipendenti().size() != 0) {
+			throw new SocietaConDipendentiException("Impossibile eliminare una societa' con dei dipendenti!!!");
+		}
+		
 		societaRepository.delete(societaInstance);
 	}
 

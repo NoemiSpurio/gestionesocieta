@@ -8,6 +8,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import it.prova.gestionesocieta.exception.SocietaConDipendentiException;
+import it.prova.gestionesocieta.model.Dipendente;
 import it.prova.gestionesocieta.model.Societa;
 
 @Service
@@ -58,5 +60,32 @@ public class BatteriaDiTestService {
 		societaService.rimuovi(nuovaSocieta2);
 		societaService.rimuovi(nuovaSocieta3);
 		System.out.println("testFindByExampleSocieta PASSED!");
+	}
+	
+	public void testRimuoviSocieta() {
+		Societa nuovaSocieta1 = new Societa("Ragione sociale 1","via Colombo 33", new Date());
+		societaService.inserisciNuovo(nuovaSocieta1);
+		
+		societaService.rimuovi(nuovaSocieta1);
+		
+		if (societaService.listAllSocieta().size() != 0) {
+			throw new RuntimeException("testRimuoviSocieta FAILED!");
+		}
+		
+		Societa nuovaSocieta2 = new Societa("Ragione sociale 1","via Colombo 33", new Date());
+		societaService.inserisciNuovo(nuovaSocieta2);
+		
+		Dipendente dipendente1 = new Dipendente("nome1","cognome1", new Date(), 1000, nuovaSocieta2);
+		dipendenteService.inserisciNuovo(dipendente1);
+		
+		try {
+			societaService.rimuovi(nuovaSocieta2);
+		} catch (SocietaConDipendentiException e) {
+			
+		}
+		
+		dipendenteService.rimuovi(dipendente1);
+		societaService.rimuovi(nuovaSocieta2);
+		System.out.println("testRimuoviSocieta PASSED!");
 	}
 }
