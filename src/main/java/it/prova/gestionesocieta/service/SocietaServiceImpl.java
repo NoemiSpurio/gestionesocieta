@@ -61,7 +61,7 @@ public class SocietaServiceImpl implements SocietaService {
 		if (StringUtils.isNotBlank(example.getIndirizzo()))
 			query += " and s.indirizzo like '%" + example.getIndirizzo() + "%'";
 		if (example.getDataFondazione() != null) 
-			query += " and s.dataFondazione > " + new java.sql.Date(example.getDataFondazione().getTime());
+			query += " and s.dataFondazione > '" + example.getDataFondazione().toInstant() + "'";
 
 		return entityManager.createQuery(query, Societa.class).getResultList();
 	}
